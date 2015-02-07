@@ -1,14 +1,15 @@
 require "scrambled_eggs/version"
-require 'bundler/setup'
-Bundler.require
+require 'openssl'
 
-# Easy data scrambler by OpenSSL
+# Easy data scrambler by OpenSSL.
 class ScrambledEggs
   # Initialize
   #
-  # _algorithm_ ::  Algorithm
+  # _algorithm_ ::  Algorithm (ex. 'aes-256-cbc')
   # _salt_      ::  Salt (8 bytes)
   # _key_       ::  Crypt key
+  #
+  # return      ::  ScrambledEggs object
   def initialize( algorithm: 'aes-256-cbc', salt: nil, key: nil )
     @@algorithm = algorithm
     @@salt = salt ? salt : OpenSSL::Random.random_bytes( 8 )
@@ -19,11 +20,11 @@ class ScrambledEggs
     end
   end
 
-  # Encrypt data
+  # Scramble (encrypt) data
   #
-  # _data_  ::  Data for encrypt
+  # _data_  ::  Data for scramble
   #
-  # return  ::  Crypted data
+  # return  ::  Scrambled data
   def scramble( data )
     cipher = OpenSSL::Cipher::Cipher.new( @@algorithm )
     cipher.encrypt
@@ -31,11 +32,11 @@ class ScrambledEggs
     @@salt + cipher.update( data ) + cipher.final
   end
   
-  # Descrypt data
+  # Descramble (descrypt) data
   #
-  # _scrambled_ ::  Data for decrypt
+  # _scrambled_ ::  Data for descramble
   #
-  # return      ::  Decrypted data
+  # return      ::  descrambled data
   def descramble( scrambled )
     cipher = OpenSSL::Cipher::Cipher.new( @@algorithm )
     cipher.decrypt

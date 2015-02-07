@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["jecy00@gmail.com"]
   spec.summary       = %q{Easy data scrambler.}
   spec.description   = %q{Easy data Scrambler. Default by hostname.}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/sanadan/scrambled_eggs"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
