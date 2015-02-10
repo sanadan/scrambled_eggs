@@ -12,7 +12,7 @@ class ScrambledEggs
   # return      ::  ScrambledEggs object
   def initialize( algorithm: 'aes-256-cbc', salt: nil, key: nil )
     @@algorithm = algorithm
-    @@salt = salt ? salt : OpenSSL::Random.random_bytes( 8 )
+    @@salt = salt != nil ? salt : OpenSSL::Random.random_bytes( 8 )
     if key
       @@key = key
     else

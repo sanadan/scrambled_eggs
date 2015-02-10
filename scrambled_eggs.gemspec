@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["sanadan"]
   spec.email         = ["jecy00@gmail.com"]
   spec.summary       = %q{Easy data scrambler.}
-  spec.description   = %q{Easy data Scrambler. Default by hostname.}
+  spec.description   = %q{Easy data scrambler. Default by hostname.}
   spec.homepage      = "https://github.com/sanadan/scrambled_eggs"
   spec.license       = "MIT"
 

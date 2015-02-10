@@ -1,20 +1,3 @@
-=begin
-require "tmpdir"
-require "pathname"
-
-class Pathname
-	@@tempname_number = 0
-	def self.tempname(base=$0, dir=Dir.tmpdir)
-		@@tempname_number += 1
-		path = new(dir) + "#{File.basename(base)}.#{$$}.#{@@tempname_number}"
-		at_exit do
-			path.rmtree if path.exist?
-		end
-		path
-	end
-end
-=end
-
 require File.dirname(__FILE__) + '/test_helper.rb'
 
 class ScrambledEggsTest < Test::Unit::TestCase
@@ -43,6 +26,23 @@ class ScrambledEggsTest < Test::Unit::TestCase
     text = 'Test text 3'
     scrambled = ScrambledEggs.new.scramble( text )
     assert_equal( ScrambledEggs.new.descramble( scrambled ), text )
+  end
+  def test_salt
+    text = 'Test text 4'
+    256.times do |i|
+      salt = []
+      8.times do
+        salt << i
+      end
+      salt = salt.pack( 'C*' )
+      scrambled = ''
+      assert_nothing_raised do
+        scrambled = ScrambledEggs.new( salt: salt ).scramble( text )
+      end
+      assert_nothing_raised do
+        ScrambledEggs.new.descramble( scrambled )
+      end
+    end
   end
 end
 
