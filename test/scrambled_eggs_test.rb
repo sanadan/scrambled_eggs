@@ -9,8 +9,10 @@ end
 
 def generate_random_file( data )
   file = Tempfile.open( 'ScrambledEggs' )
-  path = Pathname.new( file.path )
-  path.binwrite( data )
+  path = Pathname( file.path )
+  # Not exist Pathname#binwrite on Ruby 2.0.0
+  #path.binwrite( data )
+  IO.binwrite( path, data )
   return path
 end
 

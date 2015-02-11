@@ -54,8 +54,10 @@ class ScrambledEggs
   #
   # _path_  ::  File for scramble
   def scramble_file( path )
-    pathname = Pathname.new( path )
-    pathname.binwrite( scramble( pathname.binread ) )
+    pathname = Pathname( path )
+    # Not exist Pathname#binwrite on Ruby 2.0.0
+    #pathname.binwrite( scramble( pathname.binread ) )
+    IO.binwrite( pathname, scramble( pathname.binread ) )
   end
 
   # Descramble (decrypt) file
@@ -63,7 +65,9 @@ class ScrambledEggs
   # _path ::  File for descramble
   def descramble_file( path )
     pathname = Pathname.new( path )
-    pathname.binwrite( descramble( pathname.binread ) )
+    # Not exist Pathname#binwrite on Ruby 2.0.0
+    #pathname.binwrite( descramble( pathname.binread ) )
+    IO.binwrite( pathname, descramble( pathname.binread ) )
   end
 end
 
