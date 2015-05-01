@@ -20,8 +20,6 @@ Or install it yourself as:
 
 ## Usage
 
-Default key is **/etc/hostname** file.
-
 ### Scramble (encrypt)
 ```Ruby
 egg = ScrambledEggs.new
@@ -33,6 +31,8 @@ scrambled = egg.scramble( data )
 egg = ScrambledEggs.new
 descrambled = egg.descramble( scrambled )
 ```
+
+Default key is **/etc/hostname** file.
 
 ### Advanced
 ```Ruby
